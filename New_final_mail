@@ -1,0 +1,7 @@
+Improve display of email threads with participant details and read status
+
+Enhances ThreadView.tsx to show unique participants, message counts, avatars, and unread email highlighting, and adds threadId to Email type.
+
+Replit-Commit-Author: Agent
+Replit-Commit-Session-Id: e204ae3f-996c-46c7-9ccb-0ea5d9125e81
+Replit-Commit-Screenshot-Url: https://storage.googleapis.com/screenshot-production-us-central1/aef6cd53-fb1d-4c7a-95b4-c4e36e36c2ea/0c59671d-bdf1-446a-a985-94162edbfda0.jpg
