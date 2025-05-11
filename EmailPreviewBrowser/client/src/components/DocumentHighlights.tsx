@@ -18,15 +18,16 @@ import { Document, Highlight } from "@/types";
 
 interface DocumentHighlightsProps {
   updateReplyWithQuote?: (text: string) => void;
+  selectedEmailId?: number;
 }
 
-const DocumentHighlights: React.FC<DocumentHighlightsProps> = ({ updateReplyWithQuote }) => {
+const DocumentHighlights: React.FC<DocumentHighlightsProps> = ({ updateReplyWithQuote, selectedEmailId }) => {
   const { toast } = useToast();
   const [selectedDocumentId, setSelectedDocumentId] = useState<number | null>(null);
-
   // Fetch documents
   const { data: documents, isLoading: documentsLoading } = useQuery<Document[]>({
-    queryKey: ["/api/documents"]
+    queryKey: selectedEmailId ? [`/api/documents`, selectedEmailId] : [],
+    enabled: !!selectedEmailId
   });
 
   // Set initial document when data loads
@@ -34,6 +35,7 @@ const DocumentHighlights: React.FC<DocumentHighlightsProps> = ({ updateReplyWith
     if (documents && documents.length > 0 && !selectedDocumentId) {
       setSelectedDocumentId(documents[0].id);
     }
+    console.log("Selected Email ID changed:", selectedEmailId);
   }, [documents, selectedDocumentId]);
 
   // Fetch highlights for selected document
@@ -55,6 +57,7 @@ const DocumentHighlights: React.FC<DocumentHighlightsProps> = ({ updateReplyWith
   const handleRefresh = () => {
     refetchHighlights();
   };
+  
 
   const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text).then(
@@ -109,6 +112,8 @@ const DocumentHighlights: React.FC<DocumentHighlightsProps> = ({ updateReplyWith
       <section className="w-full h-full bg-white flex flex-col">
         <div className="p-4 border-b border-gray-200 flex justify-between items-center">
           <h2 className="text-lg font-medium text-gray-800">Document Highlights</h2>
+        </div>
+        <div className="flex space-x-2">
         </div>
         <div className="flex-1 flex items-center justify-center text-gray-500 p-4">
           <p>No documents available</p>

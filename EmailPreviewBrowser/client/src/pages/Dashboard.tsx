@@ -50,6 +50,8 @@ const Dashboard: React.FC = () => {
     }
   };
 
+
+
   const handleGlobalSearch = useCallback((query: string) => {
     setGlobalSearchQuery(query);
   }, []);
@@ -77,7 +79,6 @@ const Dashboard: React.FC = () => {
       // Switch to reply tab on mobile
       if (isMobile) {
         setActiveTab(1);
-        setActiveTab(2);
       }
     }
   }, [selectedEmailId, queryClient, isMobile, setActiveTab]);
@@ -116,6 +117,7 @@ const Dashboard: React.FC = () => {
               <div className={activeTab === 2 ? 'block h-full' : 'hidden'}>
                 <DocumentHighlights 
                   updateReplyWithQuote={updateReplyWithQuote}
+                  selectedEmailId={selectedEmailId}
                 />
               </div>
               
@@ -173,6 +175,7 @@ const Dashboard: React.FC = () => {
               <ResizablePanel defaultSize={30} minSize={20} maxSize={40}>
                 <DocumentHighlights 
                   updateReplyWithQuote={updateReplyWithQuote}
+                  selectedEmailId={selectedEmailId}
                 />
               </ResizablePanel>
             </ResizablePanelGroup>

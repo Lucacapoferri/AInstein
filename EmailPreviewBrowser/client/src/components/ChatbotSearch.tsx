@@ -11,6 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { useQuery } from "@tanstack/react-query";
 
 interface ChatbotSearchProps {
   onSearch: (query: string) => void;
@@ -39,6 +40,18 @@ const ChatbotSearch: React.FC<ChatbotSearchProps> = ({ onSearch }) => {
     setInputValue(e.target.value);
   };
 
+  const handleSearch = async (query: string) => {
+    console.log("Qui ci passo")
+    try {
+      const res = await fetch(`http://localhost:8000/api/search?query=${encodeURIComponent(query)}`);
+      const data = await res.json();
+      console.log("Search results:", data);
+      // Do something with `data` (update state, etc.)
+    } catch (err) {
+      console.error("Search failed:", err);
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!inputValue.trim()) return;
@@ -64,6 +77,7 @@ const ChatbotSearch: React.FC<ChatbotSearchProps> = ({ onSearch }) => {
       
       // Trigger the search
       onSearch(inputValue);
+      handleSearch(inputValue);
     }, 500);
 
     setInputValue('');
