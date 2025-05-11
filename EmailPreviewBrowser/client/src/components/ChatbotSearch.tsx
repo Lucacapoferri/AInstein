@@ -40,19 +40,37 @@ const ChatbotSearch: React.FC<ChatbotSearchProps> = ({ onSearch }) => {
     setInputValue(e.target.value);
   };
 
-  const handleSearch = async (query: string) => {
+  const handleSearch = async (query: string): Promise<string | null> => {
     console.log("Qui ci passo")
     try {
-      const res = await fetch(`http://localhost:8000/api/search?query=${encodeURIComponent(query)}`);
+      console.log("Qui ci passo")
+      const res = await fetch("http://localhost:8000/run", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          app_name: "greeting-agent",
+          user_id: "u_123",
+          session_id: "s_123", //session error its s_123
+          new_message: {
+            role: "user",
+            parts: [{ text: query }]
+          }
+        })
+      });
+      //const res = await fetch(`http://localhost:8000/api/search?query=${encodeURIComponent(query)}`);
       const data = await res.json();
-      console.log("Search results:", data);
+      console.log("Search results:", data.reply);
+      return data.reply || null;
       // Do something with `data` (update state, etc.)
     } catch (err) {
       console.error("Search failed:", err);
+      return null;
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!inputValue.trim()) return;
 
@@ -66,10 +84,12 @@ const ChatbotSearch: React.FC<ChatbotSearchProps> = ({ onSearch }) => {
     setChatHistory([...chatHistory, userMessage]);
 
     // Simulate bot response
+    const response = await handleSearch(inputValue);
+    
     setTimeout(() => {
       const botResponse: ChatMessage = {
         id: (Date.now() + 1).toString(),
-        content: `I'll search for emails related to "${inputValue}"`,
+        content: `${response}`,
         sender: 'bot',
         timestamp: new Date(),
       };
@@ -77,7 +97,7 @@ const ChatbotSearch: React.FC<ChatbotSearchProps> = ({ onSearch }) => {
       
       // Trigger the search
       onSearch(inputValue);
-      handleSearch(inputValue);
+      
     }, 500);
 
     setInputValue('');
