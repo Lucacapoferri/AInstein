@@ -100,20 +100,18 @@ def DocumentSearchTool(query: list[str]):
 
 
 
+
 # Root agent for orchestration
 root_agent = Agent(
     name="email_root_agent_v2",
     model="gemini-2.0-flash-001",  
     description="Main email assistant agent: interacts politely with the user, delegates to other agents when necessary, and manages document retrieval and integration.",
     instruction=(
-        " Always be polite and clear in your answers.\n"
-        #" When you receive a request from the user:\n"
-        " When you receive an email classify it using zero, one or more of these labels: (important), (work), (family), (deadline), (meeting). And return the output of the classification.\n"
-        " if it indicates a need for documentation or if the response seems incomplete, use the 'find_related_documents' tool or the google_search tool to search for relevant documents based on the initial response's content or the user's request, and return these documents. Always specify from which tool you get info \n"
-        " When you receive an email answer to the best of your capabilities"# and if there are some documents use these to enrich the answer "       
-        "\n"
+        """ Always be polite and clear in your answers. When you receive an email classify it using zero, one or more of these labels: (important), (work), (family), (deadline), (meeting). And return the output of the classification."
+          if it indicates a need for documentation or if the response seems incomplete, use the 'find_related_documents' tool or the google_search tool to search for relevant documents based on the initial response's content or the user's request, and return these documents. Always specify from which tool you get info"
+          When you receive an email answer to the best of your capabilities"# and if there are some documents use these to enrich the answer """
     ),
-    tools=[DocumentSearchTool, google_search],
-    sub_agents=[],
+    tools=[DocumentSearchTool],
+    #sub_agents=[],
     output_key="email_assistant_output",
 )

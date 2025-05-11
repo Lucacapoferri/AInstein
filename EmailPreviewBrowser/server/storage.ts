@@ -210,12 +210,12 @@ export class MemStorage implements IStorage {
     const sampleDocuments: InsertDocument[] = [
       {
         userId: 1,
-        name: "Meeting Notes.docx",
-        type: "docx",
+        name: "Notes",
+        type: "Folder",
         description: "Team meeting notes discussing project timeline and resource allocation.",
         date: new Date(new Date().getTime() - 2 * 24 * 60 * 60 * 1000), // 2 days ago
         content: "Full content of the meeting notes document",
-        tags: ["Document", "Team"]
+        tags: ["Folder", "Team"]
       },
       {
         userId: 1,
@@ -244,15 +244,87 @@ export class MemStorage implements IStorage {
     const sampleHighlights: InsertHighlight[] = [
       {
         documentId: 1,
-        title: "Key Decision Point",
+        title: "Key Decision Point.pdf",
         content: "The team has agreed to push back the delivery date for Phase 2 from June 15 to June 30 to accommodate additional requirements from the client.",
         page: 1,
         priority: "High Priority",
         category: "Decision"
       },
       {
-        documentId: 1,
-        title: "Resource Allocation",
+        "documentId": 2,
+        "title": "Budget Approval.pdf",
+        "content": "Finance has approved the revised budget, including additional expenses for cloud infrastructure and QA tooling.",
+        "page": 2,
+        "priority": "Medium Priority",
+        "category": "Finance"
+      },
+      {
+        "documentId": 3,
+        "title": "Client Feedback.pdf",
+        "content": "The client appreciated the latest demo but requested improvements to the mobile responsiveness and additional export features.",
+        "page": 3,
+        "priority": "Client Request",
+        "category": "Feedback"
+      },
+      {
+        "documentId": 4,
+        "title": "Security Audit Results.pdf",
+        "content": "The external audit found no critical vulnerabilities. Recommendations include upgrading TLS protocols and enforcing stricter password policies.",
+        "page": 4,
+        "priority": "High Priority",
+        "category": "Security"
+      },
+      {
+        "documentId": 5,
+        "title": "Feature Rollout Plan.pdf",
+        "content": "New feature deployment will follow a phased rollout across user segments to ensure performance and gather user insights incrementally.",
+        "page": 5,
+        "priority": "Planned",
+        "category": "Release"
+      },
+      {
+        "documentId": 6,
+        "title": "Team Performance Review.pdf",
+        "content": "Quarterly review highlights high output from development teams and recommends cross-training to cover key resource gaps.",
+        "page": 6,
+        "priority": "Low Priority",
+        "category": "HR"
+      },
+      {
+        "documentId": 7,
+        "title": "Vendor SLA Update.pdf",
+        "content": "New SLAs with third-party vendors set stricter uptime and response guarantees, aligning better with our product reliability goals.",
+        "page": 7,
+        "priority": "Medium Priority",
+        "category": "Operations"
+      },
+      {
+        "documentId": 8,
+        "title": "Compliance Checklist.pdf",
+        "content": "A checklist has been prepared to align ongoing processes with GDPR, HIPAA, and ISO 27001 compliance frameworks.",
+        "page": 8,
+        "priority": "High Priority",
+        "category": "Compliance"
+      },
+      {
+        "documentId": 9,
+        "title": "Incident Report - April.excel",
+        "content": "An incident on April 12 caused minor service disruptions. Root cause analysis attributes the issue to misconfigured load balancers.",
+        "page": 9,
+        "priority": "Important",
+        "category": "Incident"
+      },
+      {
+        documentId: 2,
+        title: "CEO_presentation_2024.pdf",
+        content: "The team has agreed to push back the delivery date for Phase 2 from June 15 to June 30 to accommodate additional requirements from the client.",
+        page: 1,
+        priority: "Remark",
+        category: "Decision"
+      },
+      {
+        documentId: 4,
+        title: "Resource Allocation.pdf",
         content: "Two additional developers will be assigned to the project starting next week to help meet the new deadlines. The budget has been approved for these additional resources.",
         page: 2,
         priority: "Medium Priority",
@@ -260,15 +332,15 @@ export class MemStorage implements IStorage {
       },
       {
         documentId: 1,
-        title: "Action Item",
+        title: "Action Item.pdf",
         content: "All team members need to update their sections of the project management tool with current status and blockers by end of day Friday.",
         page: 3,
         priority: "Assigned to You",
         category: "Action"
       },
       {
-        documentId: 1,
-        title: "Client Requirement",
+        documentId: 6,
+        title: "Client Requirement.pdf",
         content: "The client has requested additional analytics features in the dashboard to track user engagement metrics. This should be included in the next sprint planning session.",
         page: 4,
         priority: "New Requirement",

@@ -44,8 +44,8 @@ const DocumentHighlights: React.FC<DocumentHighlightsProps> = ({ updateReplyWith
     isLoading: highlightsLoading,
     refetch: refetchHighlights
   } = useQuery<Highlight[]>({
-    queryKey: selectedDocumentId ? [`/api/documents/${selectedDocumentId}/highlights`] : [],
-    enabled: !!selectedDocumentId
+    queryKey: selectedEmailId ? [`/api/documents/${selectedEmailId}/highlights`] : [],
+    enabled: !!selectedEmailId
   });
 
   const selectedDocument = documents?.find(doc => doc.id === selectedDocumentId);
@@ -127,18 +127,6 @@ const DocumentHighlights: React.FC<DocumentHighlightsProps> = ({ updateReplyWith
       <div className="p-4 border-b border-gray-200 flex justify-between items-center">
         <h2 className="text-lg font-medium text-gray-800">Document Highlights</h2>
         <div className="flex space-x-2">
-          <Select value={selectedDocumentId?.toString()} onValueChange={handleDocumentChange}>
-            <SelectTrigger className="w-[180px] text-sm h-9">
-              <SelectValue placeholder="Select a document" />
-            </SelectTrigger>
-            <SelectContent>
-              {documents.map((doc) => (
-                <SelectItem key={doc.id} value={doc.id.toString()}>
-                  {doc.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
           <Button 
             variant="ghost" 
             size="icon" 
